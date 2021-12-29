@@ -1,0 +1,20 @@
+{
+  "name": "react-graphql",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@apollo/client": "3.5.6",
+    "graphql": "^16.2.0",
+    "react": "18.0.0-rc.0-next-bcd24a670-20211221",
+    "react-dom": "18.0.0-rc.0-next-bcd24a670-20211221"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^1.1.3",
+    "eslint-plugin-react": "^7.28.0",
+    "vite": "^2.7.7"
+  }
+}
