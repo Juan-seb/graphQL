@@ -6,15 +6,16 @@ import { FIND_PERSONS } from './persons/graphql-queries'
 const Personas = ({ persons }) => {
 
     // result is an object with the data and loading state.
-    const [person, setPerson] = useState(null);
-    const [viewPerson, setViewPerson] = useState(false);
-    const [getPerson, result] = useLazyQuery(FIND_PERSONS);
+    const [getPerson, result] = useLazyQuery(FIND_PERSONS)
+    const [person, setPerson] = useState(null)
+    const [viewPerson, setViewPerson] = useState(false)
 
     // Use this function to call the query with the name to find.
     const showPerson = async (name) => {
         
-        await getPerson({ variables: { nameToFind: name } })
+        // First, update the state in other case the getPerson block the update state
         setViewPerson(true)
+        await getPerson({ variables: { nameToFind: name } })
 
     }
 

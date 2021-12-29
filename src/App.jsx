@@ -42,7 +42,7 @@ function App() {
   const logout = () => {
     setToken(null)
     window.localStorage.removeItem('user-token')
-    client.resetStore()
+    client.clearStore()
   }
 
   const notifyError = (msg) => {

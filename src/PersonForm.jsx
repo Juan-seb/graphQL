@@ -15,11 +15,36 @@ const PersonForm = ({ NotifyError }) => {
     // use the state to save the values of the form fields.
     const [data, setData] = useState(initialValues);
     const [createPerson] = useMutation(CREATE_PERSON, {
-        refetchQueries: [{ query: ALL_PERSONS }],
+        // Use refetch queries to get all data
+        /* refetchQueries: [{ query: ALL_PERSONS }], */
         onError: (error) => {
             //NotifyError stores the error message for pass to the notify component.
             console.log(error);
             NotifyError(error.graphQLErrors[0].message);
+        },
+        // Use update to update the apollo cache
+        update: (store, response) => {
+            const dataInStore = store.readQuery({ query: ALL_PERSONS })
+            console.log(typeof dataInStore.allPersons)
+            store.writeQuery(
+                {
+                    query: ALL_PERSONS,
+                    data: {
+                        ...dataInStore,
+                        allPersons: [
+                            ...dataInStore.allPersons,
+                            response.data.addPerson
+                        ]
+                    }
+                }
+            )
+            console.log(dataInStore.allPersons)
+
+        },
+        context: {
+            headers: {
+                Authorization: 'Bearer ' + window.localStorage.getItem("user-token")
+            }
         }
     });
 
